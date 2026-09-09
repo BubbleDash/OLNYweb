@@ -22,10 +22,40 @@
   --bili-pink-deep: #e44776;
   --bili-pink-soft: #fff1f5;
   --header-height: 73px;
+  --page-bg: #f4ebdd;
+  --page-bg-flash: #eeeeef;
+  --title-bar: #ced7a9;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; font-size: 15px; line-height: 1.95; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; font-size: 15px; line-height: 1.95; letter-spacing: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+.page-art { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: var(--page-bg); --art-opacity: 0.22; }
+.page-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 22% 42%; opacity: var(--art-opacity); user-select: none; }
+.page-art::after { content: ""; position: absolute; inset: 0; background: rgba(255, 255, 255, 0.55); }
+.page-art .page-art-alt { opacity: 0; }
+.page-art.is-flash { background: var(--page-bg-flash); }
+.page-art.is-flash .page-art-main { opacity: 0; }
+.page-art.is-flash .page-art-alt { opacity: var(--art-opacity); }
+.mouse-chibi { position: fixed; left: 0; top: 0; z-index: 80; width: 34px; height: auto; pointer-events: none; user-select: none; visibility: hidden; filter: drop-shadow(0 1px 1px #282e2755); }
+.partner-banner, .layout { position: relative; z-index: 1; }
+.corner-mark { position: fixed; right: max(14px, 2vw); bottom: max(14px, 2.2vw); z-index: 18; width: min(158px, 22vw); padding: 0; border: 0; background: transparent; cursor: pointer; line-height: 0; transition: width .2s ease; }
+.corner-mark.is-small { width: min(58px, 9vw); }
+.corner-mark img { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 1px #ced7a9) drop-shadow(0 1px 2px #282e2700); }
+.merch-hero { margin: 22px 0 16px; }
+.merch-hero img { width: min(128px, 36vw); height: auto; display: block; }
+.merch-hero figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); line-height: 1.8; }
+.merch-hero figcaption p { margin: 0 0 4px; }
+.merch-hero figcaption strong { color: var(--brick); }
+.merch-artist { color: var(--brick); font-size: 14px; }
+.merch-artist strong { color: var(--brick); font-weight: 700; }
+.doc-section::after { content: ""; display: table; clear: both; }
+.deco-flip { position: fixed; left: max(14px, 2vw); bottom: max(18px, 2.4vw); z-index: 16; width: min(240px, 38vw); perspective: 920px; }
+.deco-flip.is-off { display: none; }
+.deco-flip-close { position: absolute; top: -10px; right: -10px; z-index: 2; width: 28px; height: 28px; border: 0; border-radius: 50%; background: var(--brick); color: #fff; font-size: 18px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px #282e2740; }
+.deco-flip-stage { width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; perspective: 920px; }
+.deco-flip-inner { display: block; transform-style: preserve-3d; transition: transform .28s ease; }
+.deco-flip img { width: 100%; height: auto; display: block; filter: drop-shadow(0 8px 16px #282e2733); }
+.deco-flip.is-turning .deco-flip-inner { transform: rotateY(90deg); }
 button, input { font: inherit; color: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; }
@@ -40,12 +70,14 @@ svg { display: block; flex: 0 0 auto; }
 .color-edge i:nth-child(2) { background: var(--sage); }
 .color-edge i:nth-child(3) { background: var(--brick); }
 .color-edge i:nth-child(4) { background: var(--gold); }
-.partner-banner { background: var(--bili-pink); color: #fff; }
-.partner-banner-inner { max-width: 1280px; margin: 0 auto; padding: 22px 48px 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
-.partner-kicker { margin: 0; font-size: 11px; letter-spacing: 0.16em; color: #ffe4ed; }
-.partner-banner .bili-logo { height: 42px; }
-.partner-line { margin: 0; font-size: 13px; color: #fff; }
-.site-header { position: sticky; top: 0; z-index: 10; background: var(--paper); border-bottom: 1px solid var(--line); }
+.partner-banner { background: var(--title-bar); color: var(--ink); isolation: isolate; }
+.partner-banner-inner { max-width: 1280px; margin: 0 auto; padding: 26px 48px 22px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.partner-kicker { margin: 0; font-size: 11px; letter-spacing: 0.16em; color: var(--brick); }
+.partner-banner-logo { display: block; height: 76px; width: auto; }
+.partner-line { margin: 0; font-size: 13px; color: #6a5a3a; }
+.partner-logo-block { margin: 22px 0 0; padding: 22px 24px; background: var(--bili-pink); display: flex; justify-content: center; align-items: center; }
+.partner-logo-block .bili-logo { height: 48px; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #f6ead0e8; border-bottom: 1px solid var(--line); }
 .header-inner { max-width: 1280px; padding: 0 48px; height: 68px; margin: 0 auto; display: flex; align-items: center; gap: 22px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 700; text-decoration: none; font-size: 18px; white-space: nowrap; }
 .brand > svg { color: var(--brick); width: 25px; height: 25px; }
@@ -134,7 +166,7 @@ h3 .rule-number { font-family: "Segoe UI", sans-serif; color: #909c7a; font-size
 .section-body strong { color: var(--brick); font-weight: 700; }
 .section-body ul { margin: 8px 0 14px; padding-left: 1.15em; }
 .section-body li { margin: 6px 0; overflow-wrap: anywhere; }
-.table-wrap { width: 100%; margin: 18px 0; border-top: 2px solid var(--sage); }
+.table-wrap { width: 100%; margin: 18px 0; border-top: 2px solid var(--sage); overflow: auto; }
 table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: 13px; line-height: 1.9; }
 th, td { padding: 12px 16px; text-align: left; vertical-align: top; overflow-wrap: anywhere; border-bottom: 1px solid var(--line); }
 th { color: var(--green); background: #e9eddf; font-weight: 600; }
@@ -179,8 +211,10 @@ mark { background: #f0d8ad; color: #6a4319; }
   :root { --header-height: 65px; }
   html { scroll-padding-top: 0; }
   body { font-size: 14px; line-height: 1.95; }
-  .partner-banner-inner { padding: 16px 24px 14px; }
-  .partner-banner .bili-logo { height: 32px; }
+  .partner-banner-inner { padding: 18px 24px 16px; }
+  .partner-banner-logo { height: 56px; }
+  .partner-logo-block { padding: 16px 18px; }
+  .partner-logo-block .bili-logo { height: 36px; }
   .header-inner { height: 60px; padding: 0 20px; gap: 8px; }
   .brand { font-size: 16px; gap: 8px; }
   .brand small { font-size: 11px; }
@@ -224,6 +258,10 @@ mark { background: #f0d8ad; color: #6a4319; }
   #upgrade th:first-child, #upgrade td:first-child { width: 29%; }
   #upgrade th:nth-child(2), #upgrade td:nth-child(2) { width: 21%; }
   .document-footer { font-size: 11px; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .page-art { --art-opacity: 0.16; }
+  .corner-mark { width: min(128px, 28vw); right: 12px; bottom: 12px; }
+  .corner-mark.is-small { width: min(48px, 12vw); }
+  .deco-flip { width: min(168px, 46vw); left: 10px; bottom: 12px; }
   .contents { position: fixed; top: 0; right: 0; bottom: 0; z-index: 22; width: min(305px, 88%); height: 100dvh; max-height: 100dvh; padding: 25px 27px; margin: 0; background: var(--paper); visibility: hidden; transform: translateX(102%); transition: transform .2s, visibility .2s; border-left: 1px solid var(--line); }
   .contents-header { font-size: 13px; margin-bottom: 16px; }
   .contents .close-menu { display: inline-flex; }
@@ -243,15 +281,16 @@ mark { background: #f0d8ad; color: #6a4319; }
   h1 span { font-size: 18px; }
   .fact { padding-left: 8px; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
 @media print {
   @page { size: A4; margin: 16mm 16mm 17mm; }
   html { scroll-padding: 0; }
   body { background: white; font-size: 10pt; line-height: 1.6; color: #222; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .site-header, .contents, .mobile-backdrop, .search-dialog, .skip-link, .section-index, .facts { display: none !important; }
+  .site-header, .contents, .mobile-backdrop, .search-dialog, .skip-link, .section-index, .facts, .page-art, .corner-mark, .deco-flip, .mouse-chibi { display: none !important; }
   .partner-banner { break-after: avoid; }
   .partner-banner-inner { padding: 8pt 0 6pt; }
-  .partner-banner .bili-logo { height: 22pt; }
+  .partner-banner-logo { height: 28pt; }
+  .partner-logo-block { padding: 8pt; }
   .layout { display: block; max-width: none; padding: 0; }
   main { padding: 0; }
   .document-head { padding-bottom: 10pt; }
@@ -279,11 +318,25 @@ mark { background: #f0d8ad; color: #6a4319; }
 </style>
 </head>
 <body id="top">
+<div class="page-art" aria-hidden="true">
+  <img class="page-art-main" src="assets/bg-main.png" alt="">
+  <img class="page-art-alt" src="assets/bg-gray.png" alt="">
+</div>
+<img class="mouse-chibi" src="assets/cursor-angela.png" alt="" aria-hidden="true">
+<aside class="deco-flip" id="deco-flip">
+  <button class="deco-flip-close" type="button" aria-label="关闭装饰图">×</button>
+  <button class="deco-flip-stage" type="button" aria-label="点击切换装饰图">
+    <span class="deco-flip-inner"><img src="assets/deco-tea.png" alt=""></span>
+  </button>
+</aside>
+<button class="corner-mark" type="button" aria-label="镜花水月水印，点击切换大小" aria-pressed="false">
+  <img src="assets/logo-jinghuashuiyue.png" alt="镜花水月">
+</button>
 <a href="#main" class="skip-link">跳到正文</a>
 <div class="partner-banner">
   <div class="partner-banner-inner">
     <p class="partner-kicker">本次茶话会合作方</p>
-    <span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span>
+    <img class="partner-banner-logo" src="assets/logo-bili-white.png" alt="bilibilionly">
     <p class="partner-line">同人扶持计划</p>
   </div>
 </div>
@@ -303,8 +356,8 @@ mark { background: #f0d8ad; color: #6a4319; }
 <div class="mobile-backdrop" aria-hidden="true"></div>
 <div class="layout">
   <aside id="contents" class="contents" aria-label="公告目录">
-    <div class="contents-header">目录 <span>01 / 08</span><button class="icon-button close-menu" type="button" aria-label="关闭章节目录"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
-    <nav aria-label="章节目录"><a class="toc-link" href="#partner"><span class="num">合作</span><span>本次合作方</span></a><a class="toc-link" href="#event"><span class="num">01</span><span>活动与报名</span></a><a class="toc-link" href="#common"><span class="num">02</span><span>共同参会须知</span></a><a class="toc-link" href="#booths"><span class="num">03</span><span>申摊说明</span></a><a class="toc-link" href="#posting"><span class="num">04</span><span>宣传投稿</span></a><a class="toc-link" href="#discount"><span class="num">05</span><span>合作减免与缴费</span></a><a class="toc-link" href="#upgrade"><span class="num">06</span><span>特典票升级</span></a><a class="toc-link" href="#member"><span class="num">07</span><span>大会员专属物料</span></a></nav>
+    <div class="contents-header">目录 <span>01 / 09</span><button class="icon-button close-menu" type="button" aria-label="关闭章节目录"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+    <nav aria-label="章节目录"><a class="toc-link" href="#partner"><span class="num">合作</span><span>本次合作方</span></a><a class="toc-link" href="#event"><span class="num">01</span><span>活动与报名</span></a><a class="toc-link" href="#visitor"><span class="num">02</span><span>游客票与当日安排</span></a><a class="toc-link" href="#common"><span class="num">03</span><span>共同参会须知</span></a><a class="toc-link" href="#booths"><span class="num">04</span><span>申摊说明</span></a><a class="toc-link" href="#posting"><span class="num">05</span><span>宣传投稿</span></a><a class="toc-link" href="#discount"><span class="num">06</span><span>合作减免与缴费</span></a><a class="toc-link" href="#upgrade"><span class="num">07</span><span>特典票升级</span></a><a class="toc-link" href="#member"><span class="num">08</span><span>大会员专属物料</span></a></nav>
     <div class="side-meta"><div class="side-date">11.28</div><p>广州月亮计划only<br>茶话会 · 摊主招募</p>
       <div class="side-partner"><a href="#partner"><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span><span>本次合作方</span></a></div>
     </div>
@@ -339,10 +392,6 @@ mark { background: #f0d8ad; color: #6a4319; }
 <td>同人扶持计划</td>
 </tr>
 <tr>
-<td>合作目的</td>
-<td>让 IP 的核心用户感受到 B 站在扶持他们喜欢的 IP，也让同人创作者感受到 B 站在扶持 IP 的同人生态</td>
-</tr>
-<tr>
 <td>摊主可申请</td>
 <td>按本公告完成 B 站有效宣传投稿后，可申请摊位费减免</td>
 </tr>
@@ -356,6 +405,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 </tr>
 </tbody></table>
 </div><p>摊位减免规则见后文「合作减免与缴费」；投稿格式与计次规则见「宣传投稿」。</p>
+<div class="partner-logo-block"><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></div>
 </div></section>
     <div class="facts" aria-label="活动概要">
       <div class="fact"><span class="fact-label">十一月 · 周六</span><span class="fact-value">28<small>日</small></span></div>
@@ -395,20 +445,86 @@ mark { background: #f0d8ad; color: #6a4319; }
 <td>200元／摊／天</td>
 </tr>
 </tbody></table>
-</div><p>欢迎老师们来摆摊，也请在报名、购票前完整阅读以下说明。<strong>共同参会须知适用于游客、主摊主及跟摊人员；提前布展不代表可以免于手环检查或其他现场要求。</strong></p>
+</div><p>欢迎老师们来摆摊，也请在报名、购票前完整阅读以下说明。游客票价、取餐和当日流程见「游客票与当日安排」。<strong>共同参会须知适用于游客、主摊主及跟摊人员；提前布展不代表可以免于手环检查或其他现场要求。</strong></p>
 </div></section>
-<section class="doc-section" id="common" aria-labelledby="heading-common"><div class="section-title"><span class="section-number">02</span><h2 id="heading-common">共同参会须知</h2></div><details class="section-index"><summary>条目索引<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><nav aria-label="共同参会须知条目"><a href="#common-01"><span>01</span>入场核验与手环</a><a href="#common-02"><span>02</span>活体动物与危险物品</a><a href="#common-03"><span>03</span>大型道具与摄影设备</a><a href="#common-04"><span>04</span>服装展示与拍摄</a><a href="#common-05"><span>05</span>餐饮与私人交换</a><a href="#common-06"><span>06</span>休息桌与垃圾清理</a><a href="#common-07"><span>07</span>物料摆放与个人保管</a><a href="#common-08"><span>08</span>无料领取与失物招领</a><a href="#common-09"><span>09</span>通道与公共活动</a><a href="#common-10"><span>10</span>现场协调与行为责任</a><a href="#common-11"><span>11</span>群内AI图片与交流规范</a><a href="#common-12"><span>12</span>现场AI制品与交换处理</a></nav></details><div class="section-body"><section class="rule" id="common-01"><h3><span class="rule-number">01</span>入场核验与手环</h3><p>入场须配合检票、年龄核验和手环查验，并按活动公布的方式出示可核验年龄的有效证件。未达到对应年龄要求、无法完成核验或拒绝配合的，工作人员有权暂缓或拒绝入场。</p>
+<section class="doc-section" id="visitor" aria-labelledby="heading-visitor"><div class="section-title"><span class="section-number">02</span><h2 id="heading-visitor">游客票与当日安排</h2></div><div class="section-body"><p>下列为游客需要了解的票价、取餐与当日流程。餐点种类和现场存量<strong>以现场为准</strong>，先到的人可以先选。</p>
+<section class="rule" id="visitor-01"><h3><span class="rule-number">01</span>票价与售票</h3><div class="table-wrap"><table aria-label="游客票价">
+<thead>
+<tr>
+<th>票种</th>
+<th>预售票</th>
+<th>正式票</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>普票</td>
+<td>98元</td>
+<td>108元</td>
+</tr>
+<tr>
+<td>特典票</td>
+<td>148元</td>
+<td>158元</td>
+</tr>
+</tbody></table>
+</div><p>预计<strong>10月1日结束预售</strong>，之后进入正式售票。正式票比预售票贵10元，内容没有区别。</p>
+</section><section class="rule" id="visitor-02"><h3><span class="rule-number">02</span>取餐说明</h3><p>取餐券只区分<strong>普票</strong>和<strong>特典票</strong>两档。备餐数量可能有小幅起伏，但总数是确定的。去得早可以先选想要的种类；去得晚可能只能在剩下的里面挑。</p>
+<p>普票餐点体积较小，下列选一：水果酸奶杯、水果布丁杯、巧克力甜甜圈、抹茶味蛋糕卷、小奶油水果纸杯蛋糕。</p>
+<p>特典票下列选一：三英寸巴斯克小蛋糕、长方形切块蛋糕、水果三角形小切蛋糕、水果杯子蛋糕、三寸蛋糕卷、千层切蛋糕。</p>
+<p>口味以投票结果为主，目前是抹茶巧克力、杏仁、水果、焦糖、牛奶。</p>
+</section><section class="rule" id="visitor-03"><h3><span class="rule-number">03</span>入场与当日流程</h3><div class="table-wrap"><table aria-label="当日流程">
+<thead>
+<tr>
+<th>时间</th>
+<th>安排</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>11:00</td>
+<td>特典票入场</td>
+</tr>
+<tr>
+<td>11:30</td>
+<td>普票入场</td>
+</tr>
+<tr>
+<td>约13:30</td>
+<td>自由麦（自由舞台）开始</td>
+</tr>
+<tr>
+<td>15:00</td>
+<td>自由麦结束，随后大合照；合照完成后现场抽奖开奖</td>
+</tr>
+<tr>
+<td>15:00后至16:30</td>
+<td>仍可现场报名自由舞台</td>
+</tr>
+<tr>
+<td>16:30</td>
+<td>活动结束</td>
+</tr>
+<tr>
+<td>约17:00</td>
+<td>开始清场</td>
+</tr>
+</tbody></table>
+</div>
+</section><section class="rule" id="visitor-04"><h3><span class="rule-number">04</span>现场抽奖</h3><p>现场将展出并抽取一套价值约千元的cos服装，<strong>暂定为优质面料的凯瑟琳棕色礼裙</strong>。该服装已委托月计知名cos服装老师<strong>因幡limbus</strong>制作。</p>
+<p>参与方式：游客拍摄bilibilionly发放的无料（良秀母女立牌）后，带话题 <strong>#bilibilionly</strong>，发布到小红书、抖音或B站任意平台打卡，即可获得一个抽奖号码。</p>
+<p>自由麦结束后进行最终开奖。</p>
+</section></div></section>
+<section class="doc-section" id="common" aria-labelledby="heading-common"><div class="section-title"><span class="section-number">03</span><h2 id="heading-common">共同参会须知</h2></div><details class="section-index"><summary>条目索引<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><nav aria-label="共同参会须知条目"><a href="#common-01"><span>01</span>入场核验与手环</a><a href="#common-02"><span>02</span>活体动物与危险物品</a><a href="#common-03"><span>03</span>大型道具与摄影设备</a><a href="#common-04"><span>04</span>服装展示与拍摄</a><a href="#common-05"><span>05</span>餐饮与私人交换</a><a href="#common-06"><span>06</span>休息桌与垃圾清理</a><a href="#common-07"><span>07</span>物料摆放与个人保管</a><a href="#common-08"><span>08</span>无料领取与失物招领</a><a href="#common-09"><span>09</span>通道与公共活动</a><a href="#common-10"><span>10</span>现场协调与行为责任</a><a href="#common-11"><span>11</span>群内AI图片与交流规范</a><a href="#common-12"><span>12</span>现场AI制品与交换处理</a></nav></details><div class="section-body"><section class="rule" id="common-01"><h3><span class="rule-number">01</span>入场核验与手环</h3><p>入场须配合检票、年龄核验和手环查验，并按活动公布的方式出示可核验年龄的有效证件。未达到对应年龄要求、无法完成核验或拒绝配合的，工作人员有权暂缓或拒绝入场。</p>
 <p><strong>所有人员均须佩戴有效手环，摊主及跟摊人员也不例外；再次入场同样须查验。摊主证仅作纪念，不作为入场凭证。</strong>禁止转借手环、冒用身份或用他人凭证带人入场。手环损坏、遗失时，须先联系工作人员核验处理，不得自行更换。</p>
 </section><section class="rule" id="common-02"><h3><span class="rule-number">02</span>活体动物与危险物品</h3><p>禁止以宠物、展示、交换或售卖等形式携带活体动物入场。禁止携带枪支、开刃刀具、裸露尖针、带锐利边缘的玻璃道具，以及其他可能造成割伤、刺伤或危险的物品。危险物品不会因角色还原或提前报备而获准携带。工作人员有权拒绝相关物品入场，并对涉嫌违法或存在安全威胁的情况联系安保、公安处理。</p>
 </section><section class="rule" id="common-03"><h3><span class="rule-number">03</span>大型道具与摄影设备</h3><p>大型道具、摄影架、灯架、背景架，以及需要展开占地或设置固定机位的设备，均须提前向主办报备尺寸、用途及使用方式，并获得确认。<strong>未经确认，工作人员有权拒绝相关物品带入场内。</strong></p>
 <p>获准携带不代表可以自行占用公共摄影区、休息区或通道。设备须在确认的区域和范围内使用；超出范围或影响他人时，工作人员有权要求立即收起、停止使用或移位。普通入场资格不包含专属机位或公共区域的独占使用权。</p>
 </section><section class="rule" id="common-04"><h3><span class="rule-number">04</span>服装展示与拍摄</h3><p>禁止裸露私密部位、明显不适合公共场合的服装，以及过度写实的血腥、暴力展示。存在上述情况时，工作人员有权要求遮盖、调整或停止展示；拒不配合的，有权拒绝入场或要求离场。</p>
 <p>拍摄他人、摊位及作品前须征得同意。禁止偷拍、强行合影或阻碍通行；未经确认，不得自行组织采访、持续录制、直播或长期占位拍摄。</p>
-</section><section class="rule" id="common-05"><h3><span class="rule-number">05</span>餐饮与私人交换</h3><p>本次茶话会安排的咖啡、饮品及餐点由合作咖啡厅提供，咖啡厅对其供应餐饮的食品安全负责，具体领取内容按对应票种说明执行。过敏或有饮食限制的老师，须在领取、食用前向咖啡厅确认成分。发现餐饮异常或身体不适，须立即停止食用并联系咖啡厅及工作人员。</p>
+</section><section class="rule" id="common-05"><h3><span class="rule-number">05</span>餐饮与私人交换</h3><p>本次茶话会安排的咖啡、饮品及餐点由合作咖啡厅提供，咖啡厅对其供应餐饮的食品安全负责，具体领取内容见「游客票与当日安排」。过敏或有饮食限制的老师，须在领取、食用前向咖啡厅确认成分。发现餐饮异常或身体不适，须立即停止食用并联系咖啡厅及工作人员。</p>
 <p><strong>不建议携带来源不明、无正规包装，或缺少成分、保质期等信息的食品入场分享。</strong>游客、摊主之间自行赠送或交换的食品、饮品及其他个人使用物品，不属于活动统一供应内容，主办不对其来源、卫生、保存情况或适用性作保证。</p>
 <p>提供者须如实告知来源、成分及保存情况，并对自身提供行为负责；接受者须结合过敏、卫生等情况自行甄别，决定是否接受或使用。禁止强行劝食、强行赠送。对明显过期、变质或存在安全隐患的物品，工作人员有权要求停止分发或使用。私人交换造成的争议由相关当事人处理，依法属于主办的责任不因此免除。</p>
 </section><section class="rule" id="common-06"><h3><span class="rule-number">06</span>休息桌与垃圾清理</h3><p>休息桌供大家休息、交流，在不影响正常使用的前提下可以适量摆放物料，不得铺满桌面、占用座位或长期占位。<strong>产生的包装、纸巾、杯具及其他垃圾须及时清走，离开座位前必须清理干净，不能留给下一位使用者或工作人员。</strong>需由咖啡厅回收的餐具须送到指定位置。</p>
-<p><strong>本次茶话会仅在指定用餐区域允许用餐。此安排不延续至后续普通only活动；普通only活动的休息桌不作为用餐区，不得在该处用餐。</strong></p>
+<p><strong>本次是茶话会，大家都可以在桌面上用餐。</strong>若是普通only，一般不建议长时间占用休息桌用餐；本次茶话会不适用该条。请照常及时清理包装、纸巾和杯具，离开前把桌面收拾干净。</p>
 </section><section class="rule" id="common-07"><h3><span class="rule-number">07</span>物料摆放与个人保管</h3><p><strong>休息桌及其他公共桌面均不提供物料寄存、看管、代发或领取登记服务。</strong>主摊主、跟摊人员和游客均须自行保管作品、物料、现金、设备、行李及其他个人物品；放在公共桌面不代表已交由主办保管。</p>
 <p>选择摆放者须自行安排看管、领取标识和收回，并考虑无人看管时可能发生的误拿、多拿、遗失、遗漏或损坏。不能接受无人看管风险的，请勿以这种方式摆放；贵重、限量或不可替代的物品须随身保管或当面交付。</p>
 <p><strong>对非因主办过错造成的上述损失，主办不承担保管、赔偿、补发或补寄责任，不提供持续追查、代为索赔等后续服务，也不保证物品能够找回。</strong>现场提供的登记和协助寻找，不代表接管私人财物或作出找回、赔付承诺；法律要求履行的安全保障及必要协助义务仍依法处理。</p>
@@ -428,7 +544,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 <p>发现或怀疑对方提供AI制品时，<strong>可以直接拒收；已经收到的，可以联系提供者协商退回、换回或其他处理。</strong>不便沟通或出现争执时，可向工作人员反映具体情况。</p>
 <p>有明确依据确认违规的，<strong>工作人员有权要求停止展示、售卖、分发或交换，并要求将相关制品收起、带离场内；拒不配合的，按现场秩序规则处理。</strong>对作品来源有疑问，请先核实、沟通，禁止未经核实公开挂人或煽动围攻。</p>
 </section></div></section>
-<section class="doc-section" id="booths" aria-labelledby="heading-booths"><div class="section-title"><span class="section-number">03</span><h2 id="heading-booths">申摊说明</h2></div><div class="section-body"><section class="rule" id="booths-01"><h3><span class="rule-number">01</span>费用与人数</h3><div class="table-wrap"><table aria-label="申摊说明">
+<section class="doc-section" id="booths" aria-labelledby="heading-booths"><div class="section-title"><span class="section-number">04</span><h2 id="heading-booths">申摊说明</h2></div><div class="section-body"><section class="rule" id="booths-01"><h3><span class="rule-number">01</span>费用与人数</h3><div class="table-wrap"><table aria-label="申摊说明">
 <thead>
 <tr>
 <th>项目</th>
@@ -445,7 +561,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 </tr>
 <tr>
 <td>普票内容</td>
-<td>两人均按普票待遇参加，含2份普票物料，具体内容见票种说明</td>
+<td>两人均按普票待遇参加，含2份普票物料，具体内容见「游客票与当日安排」</td>
 </tr>
 <tr>
 <td>摊主证</td>
@@ -472,7 +588,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 <p><strong>活动如期举办且按约提供摊位的情况下，缴费后因摊主个人原因退摊、缺席或提前离场，摊位费不予退还。</strong>请在缴费前确认时间、人员及配置。此条不免除主办因取消活动或未按约提供服务依法应承担的责任。</p>
 <p>欢迎带着创作来交流，也请结合活动规模、作品类型及成本自行安排备货。<strong>主办不承诺各摊的客流、销量、回本或收益。</strong></p>
 </section></div></section>
-<section class="doc-section" id="posting" aria-labelledby="heading-posting"><div class="section-title"><span class="section-number">04</span><h2 id="heading-posting">宣传投稿</h2><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></div><details class="section-index"><summary>条目索引<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><nav aria-label="宣传投稿条目"><a href="#posting-01"><span>01</span>如何投稿</a><a href="#posting-02"><span>02</span>什么样的投稿会被记数</a><a href="#posting-03"><span>03</span>格式要求</a></nav></details><div class="section-body"><p>本次摊位减免，按老师在 B 站完成的有效宣传投稿核验。请先按本条完成发布，再按后文提交减免申请。</p>
+<section class="doc-section" id="posting" aria-labelledby="heading-posting"><div class="section-title"><span class="section-number">05</span><h2 id="heading-posting">宣传投稿</h2><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></div><details class="section-index"><summary>条目索引<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><nav aria-label="宣传投稿条目"><a href="#posting-01"><span>01</span>如何投稿</a><a href="#posting-02"><span>02</span>什么样的投稿会被记数</a><a href="#posting-03"><span>03</span>格式要求</a></nav></details><div class="section-body"><p>本次摊位减免，按老师在 B 站完成的有效宣传投稿核验。请先按本条完成发布，再按后文提交减免申请。</p>
 <section class="rule" id="posting-01"><h3><span class="rule-number">01</span>如何投稿</h3><p>使用<strong>本人 B 站账号</strong>，发布与本次「广州月亮计划only · 11月28日茶话会」相关的宣传内容。形式须为<strong>公开视频</strong>或<strong>公开专栏</strong>。</p>
 <p>发布时须添加指定话题；若为视频，还须按格式在标题末尾加上指定文案。作品须设为公开可见，并保留至审核结束。记下作品链接，截取账号页、作品页及截止前的数据页，随减免申请表一并提交。</p>
 </section><section class="rule" id="posting-02"><h3><span class="rule-number">02</span>什么样的投稿会被记数</h3><p>同时满足以下条件的投稿，才会被记入减免次数或数据档：</p>
@@ -523,7 +639,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 </div><p>标题示例：广州月亮计划only 11月28日茶话会摊位预告【bilibilionly同人扶持计划】</p>
 <p>请按要求完成内容并保留链接和截图。核验以截止前的公开状态、话题、标题和数据为准。</p>
 </section></div></section>
-<section class="doc-section" id="discount" aria-labelledby="heading-discount"><div class="section-title"><span class="section-number">05</span><h2 id="heading-discount">bilibilionly 合作减免与缴费</h2><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></div><div class="section-body"><section class="rule" id="discount-01"><h3><span class="rule-number">01</span>减免档位与多摊申请</h3><p>本次与bilibilionly合作，按照活动要求在B站发布有效宣传内容，可申请以下减免。有效发布的判定、格式与计次规则，以「宣传投稿」为准。</p>
+<section class="doc-section" id="discount" aria-labelledby="heading-discount"><div class="section-title"><span class="section-number">06</span><h2 id="heading-discount">bilibilionly 合作减免与缴费</h2><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></div><div class="section-body"><section class="rule" id="discount-01"><h3><span class="rule-number">01</span>减免档位与多摊申请</h3><p>本次与bilibilionly合作，按照活动要求在B站发布有效宣传内容，可申请以下减免。有效发布的判定、格式与计次规则，以「宣传投稿」为准。</p>
 <div class="table-wrap"><table aria-label="bilibilionly 合作减免与缴费">
 <thead>
 <tr>
@@ -575,7 +691,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 </section><section class="rule" id="discount-03"><h3><span class="rule-number">03</span>先核减免再缴费</h3><p><strong>申请减免的老师，请先提交材料，收到核验结果与应缴金额后再付款。</strong>收到缴费通知后须按期完成并提交付款凭证；未按期缴费且未提前沟通的，主办有权在提醒后释放该名额。</p>
 <p>以核验结果为准缴费，不采用“先付原价、之后继续发帖再申请退款”的方式。已核准优惠、但付款时误付或重复付款的，核对后退回实际多付部分；缴费后新增的发布或数据不再追加减免。</p>
 </section></div></section>
-<section class="doc-section" id="upgrade" aria-labelledby="heading-upgrade"><div class="section-title"><span class="section-number">06</span><h2 id="heading-upgrade">特典票升级</h2></div><div class="section-body"><p>每摊默认含2份普票内容。希望领取特典票对应甜点及更多物料的老师，可按人数补差价，具体内容见特典票清单。</p>
+<section class="doc-section" id="upgrade" aria-labelledby="heading-upgrade"><div class="section-title"><span class="section-number">07</span><h2 id="heading-upgrade">特典票升级</h2></div><div class="section-body"><p>每摊默认含2份普票内容。希望领取特典票对应甜点及更多物料的老师，可按人数补差价，具体内容见「游客票与当日安排」。</p>
 <div class="table-wrap"><table aria-label="特典票升级">
 <thead>
 <tr>
@@ -603,9 +719,16 @@ mark { background: #f0d8ad; color: #6a4319; }
 </div><p><strong>补40元只升级其中1人，不是整摊两人一起升级。</strong>请在缴费前登记升级人数，由主办一并核算应缴金额。摊位减免不抵扣特典升级差价。</p>
 <p>例如：单摊获得100元减免后，基础摊位费为100元；升级1人合计140元，两人均升级合计180元。</p>
 </div></section>
-<section class="doc-section" id="member" aria-labelledby="heading-member"><div class="section-title"><span class="section-number">07</span><h2 id="heading-member">B站大会员专属物料</h2><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></div><div class="section-body"><p>游客、主摊主及跟摊人员，持有效B站大会员并完成现场扫码核验，可免费领取合作方提供的大会员专属物料，<strong>暂定限量100份，先到先领，领完即止</strong>。此项无需另行付费，与摊位宣传减免分别核验；同一人、同一大会员账号均限领一份，不能重复兑换。</p>
+<section class="doc-section" id="member" aria-labelledby="heading-member"><div class="section-title"><span class="section-number">08</span><h2 id="heading-member">B站大会员专属物料</h2><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></div><div class="section-body"><p>游客、主摊主及跟摊人员，持有效B站大会员并完成现场扫码核验，可免费领取合作方提供的大会员专属物料，<strong>暂定限量100份，先到先领，领完即止</strong>。此项无需另行付费，与摊位宣传减免分别核验；同一人、同一大会员账号均限领一份，不能重复兑换。</p>
 <p>兑换预计在<strong>特典票游客开始入场约半小时后、普票游客入场前</strong>开放，准确时刻随入场时间表公布。<strong>摊主不能因提前布展而提前兑换；所有人员均须等待统一开放。</strong>请按兑换区指引排队，扫码并核验大会员状态后领取。</p>
 <p>报名时请主摊主一并告知跟摊人员上述要求。遇到需要提前协调的情况，欢迎通过CPP活动页公布的摊位对接方式联系主办。期待和带着喜欢而来的老师们见面。</p>
+<figure class="merch-hero">
+  <img src="assets/merch-standee.png" alt="B站大会员专属物料：阿赖耶·良秀母女三插立牌样机参考图">
+  <figcaption>
+    <p><strong>合作方提供的大会员专属物料为三插立牌（阿赖耶·良秀母女）。这张只是样机参考图，一切以实物为准。</strong>最终领取的是现场实物，不以本图细节为准。</p>
+    <p class="merch-artist"><strong>画师：B站化石级UP主 麦田六神</strong></p>
+  </figcaption>
+</figure>
 </div></section></article>
     <footer class="document-footer"><span class="footer-brand">广州月亮计划only <span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></span><span>2026.11.28 · 期待和老师们见面</span></footer>
   </main>
@@ -755,6 +878,57 @@ mark { background: #f0d8ad; color: #6a4319; }
   });
   searchInput.addEventListener('input', renderSearch);
   searchInput.addEventListener('keydown', event => { if (event.key === 'Enter') results.querySelector('button')?.click(); });
+
+  const cornerMark = document.querySelector('.corner-mark');
+  cornerMark.addEventListener('click', () => {
+    const small = cornerMark.classList.toggle('is-small');
+    cornerMark.setAttribute('aria-pressed', String(small));
+  });
+
+  const pageArt = document.querySelector('.page-art');
+  setTimeout(() => {
+    pageArt.classList.add('is-flash');
+    setTimeout(() => pageArt.classList.remove('is-flash'), 3000);
+  }, 60000);
+
+  const mouseChibi = document.querySelector('.mouse-chibi');
+  if (mouseChibi) {
+    window.addEventListener('mousemove', event => {
+      mouseChibi.style.visibility = 'visible';
+      mouseChibi.style.left = (event.clientX + 6) + 'px';
+      mouseChibi.style.top = (event.clientY + 8) + 'px';
+    }, { passive: true });
+  }
+
+  const decoFlip = document.querySelector('#deco-flip');
+  const decoInner = decoFlip.querySelector('.deco-flip-inner');
+  const decoImg = decoInner.querySelector('img');
+  const decoSrcs = ['assets/deco-tea.png', 'assets/deco-snack.png', 'assets/deco-pour.png'];
+  let decoIndex = 0;
+  let decoBusy = false;
+  decoFlip.querySelector('.deco-flip-close').addEventListener('click', event => {
+    event.stopPropagation();
+    decoFlip.classList.add('is-off');
+  });
+  decoFlip.querySelector('.deco-flip-stage').addEventListener('click', () => {
+    if (decoBusy) return;
+    decoBusy = true;
+    decoInner.style.transition = 'transform .28s ease';
+    decoInner.style.transform = 'rotateY(90deg)';
+    setTimeout(() => {
+      decoIndex = (decoIndex + 1) % decoSrcs.length;
+      decoImg.src = decoSrcs[decoIndex];
+      decoInner.style.transition = 'none';
+      decoInner.style.transform = 'rotateY(-90deg)';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          decoInner.style.transition = 'transform .28s ease';
+          decoInner.style.transform = 'rotateY(0deg)';
+        });
+      });
+      setTimeout(() => { decoBusy = false; }, 280);
+    }, 280);
+  });
 })();
 </script>
 </body>
