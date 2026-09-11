@@ -36,6 +36,17 @@ body { margin: 0; background: var(--cream); color: var(--ink); font-family: "Mic
 .page-art.is-flash { background: var(--page-bg-flash); }
 .page-art.is-flash .page-art-main { opacity: 0; }
 .page-art.is-flash .page-art-alt { opacity: var(--art-opacity); }
+.page-art.is-flash::after { background: rgba(255, 255, 255, 0.28); }
+.data-snow { position: fixed; inset: 0; z-index: 9; pointer-events: none; display: block; width: 100%; height: 100%; opacity: 0.9; animation: data-snow-flicker 3s linear forwards; }
+@keyframes data-snow-flicker {
+  0%, 7%, 18%, 36%, 58%, 76% { opacity: 0.92; }
+  3%, 12%, 31%, 52%, 71% { opacity: 0.22; }
+  88% { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+body.is-bg-easter .deco-flip,
+body.is-bg-easter .corner-mark,
+body.is-bg-easter .mouse-chibi { visibility: hidden !important; }
 .mouse-chibi { position: fixed; left: 0; top: 0; z-index: 80; width: 34px; height: auto; pointer-events: none; user-select: none; visibility: hidden; filter: drop-shadow(0 1px 1px #282e2755); }
 .partner-banner, .layout { position: relative; z-index: 1; }
 .corner-mark { position: fixed; right: max(14px, 2vw); bottom: max(14px, 2.2vw); z-index: 18; width: min(158px, 22vw); padding: 0; border: 0; background: transparent; cursor: pointer; line-height: 0; transition: width .2s ease; }
@@ -293,7 +304,7 @@ mark { background: #f0d8ad; color: #6a4319; }
   @page { size: A4; margin: 16mm 16mm 17mm; }
   html { scroll-padding: 0; }
   body { background: white; font-size: 10pt; line-height: 1.6; color: #222; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .site-header, .contents, .mobile-backdrop, .search-dialog, .skip-link, .section-index, .facts, .page-art, .corner-mark, .deco-flip, .mouse-chibi { display: none !important; }
+  .site-header, .contents, .mobile-backdrop, .search-dialog, .skip-link, .section-index, .facts, .page-art, .data-snow, .corner-mark, .deco-flip, .mouse-chibi { display: none !important; }
   .partner-banner { break-after: avoid; }
   .partner-banner-inner { padding: 8pt 0 6pt; }
   .partner-banner-logo { height: 28pt; }
@@ -962,10 +973,78 @@ mark { background: #f0d8ad; color: #6a4319; }
   });
 
   const pageArt = document.querySelector('.page-art');
-  setTimeout(() => {
+  function startDataSnow(ms) {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'data-snow';
+    canvas.setAttribute('aria-hidden', 'true');
+    pageArt.insertAdjacentElement('afterend', canvas);
+    const ctx = canvas.getContext('2d', { alpha: true });
+    const cell = 14;
+    const glyphs = '01010101░▒▓█|/\\*+#';
+    let width = 0, height = 0, cols = 0, drops = [], raf = 0;
+    function size() {
+      width = innerWidth;
+      height = innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      cols = Math.ceil(width / cell);
+      drops = Array.from({ length: cols }, () => Math.random() * height);
+    }
+    size();
+    const started = performance.now();
+    function tick(now) {
+      if (now - started >= ms) {
+        cancelAnimationFrame(raf);
+        canvas.remove();
+        return;
+      }
+      ctx.fillStyle = 'rgba(40, 46, 39, 0.08)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.font = '15px Consolas, "Cascadia Mono", "Courier New", monospace';
+      ctx.textBaseline = 'top';
+      for (let i = 0; i < cols; i++) {
+        if (Math.random() > 0.18) {
+          ctx.fillStyle = Math.random() > 0.78
+            ? 'rgba(255, 255, 255, 0.95)'
+            : 'rgba(67, 83, 62, ' + (0.45 + Math.random() * 0.5) + ')';
+          ctx.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], i * cell, drops[i]);
+        }
+        drops[i] += 14 + Math.random() * 18;
+        if (drops[i] > height) drops[i] = Math.random() * -48;
+      }
+      const specks = Math.min(720, Math.floor(width * height / 900));
+      for (let k = 0; k < specks; k++) {
+        ctx.fillStyle = Math.random() > 0.45
+          ? 'rgba(255, 255, 255, ' + (0.45 + Math.random() * 0.55) + ')'
+          : 'rgba(40, 46, 39, ' + (0.25 + Math.random() * 0.5) + ')';
+        const s = Math.random() > 0.65 ? 2 : 1;
+        ctx.fillRect(Math.random() * width, Math.random() * height, s, s);
+      }
+      if (Math.random() > 0.7) {
+        ctx.fillStyle = 'rgba(236, 240, 224, ' + (0.12 + Math.random() * 0.2) + ')';
+        ctx.fillRect(0, Math.random() * height, width, 1 + Math.random() * 3);
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+    addEventListener('resize', size, { passive: true });
+    setTimeout(() => {
+      cancelAnimationFrame(raf);
+      removeEventListener('resize', size);
+      canvas.remove();
+    }, ms + 50);
+  }
+  function playBgEaster() {
+    if (pageArt.classList.contains('is-flash')) return;
     pageArt.classList.add('is-flash');
-    setTimeout(() => pageArt.classList.remove('is-flash'), 3000);
-  }, 60000);
+    document.body.classList.add('is-bg-easter');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) startDataSnow(3000);
+    setTimeout(() => {
+      pageArt.classList.remove('is-flash');
+      document.body.classList.remove('is-bg-easter');
+    }, 3000);
+  }
+  setTimeout(playBgEaster, 60000);
 
   const mouseChibi = document.querySelector('.mouse-chibi');
   if (mouseChibi) {
