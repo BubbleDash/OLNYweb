@@ -136,6 +136,8 @@ h1 { font-family: "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "SimS
 h1 span { display: block; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 24px; line-height: 1.7; font-weight: 500; margin-top: 0; }
 .lede { margin: 0 0 14px; font-size: 16px; color: var(--brick); font-weight: 500; }
 .unofficial-mark { display: inline-block; margin: 0 0 16px; padding: 6px 12px; border: 1.5px solid var(--brick); color: var(--brick); font-size: 14px; font-weight: 700; letter-spacing: 0.08em; line-height: 1.4; }
+.cover-hero { margin: 4px 0 22px; }
+.cover-hero img { width: 100%; height: auto; display: block; }
 .invitation { font-size: 14px; color: #626859; line-height: 2; }
 .invitation p { margin: 0 0 12px; }
 .invitation p:last-child { margin-bottom: 0; }
@@ -315,6 +317,7 @@ mark { background: #f0d8ad; color: #6a4319; }
   h1 { font-size: 24pt; margin: 0 0 9pt; }
   h1 span { font-size: 17pt; }
   .eyebrow, .lede, .unofficial-mark { font-size: 10pt; }
+  .cover-hero { margin: 6pt 0 9pt; }
   .invitation { font-size: 9.5pt; line-height: 1.7; }
   .doc-section { padding: 15pt 0 10pt; }
   .section-title { margin-bottom: 9pt; break-after: avoid; }
@@ -387,6 +390,9 @@ mark { background: #f0d8ad; color: #6a4319; }
       <p class="eyebrow">广州月亮计划only · 2026</p>
       <h1>十一月茶话会<span>摊主招募与参会须知</span></h1>
       <p class="unofficial-mark">非官方，只是同人项目</p>
+      <figure class="cover-hero">
+        <img src="assets/cover-poster.jpg" width="960" height="540" alt="广州月亮计划only 2026年11月28日茶话会宣传图：感恩节快乐，镜花水月">
+      </figure>
       <p class="lede">让巴士小憩一下，来赴一场暖乎乎的同好之约吧。</p>
       <div class="invitation"><p>经过群里一番热烈投票，这次小聚的主基调终于定下——《呼啸山庄》篇。故事里的风雨，就留到这个暖棕色的午后，和同好们一起聊聊。</p>
 <p>除了《边狱巴士》的同事旅伴，《脑叶公司》的主管、员工与异想体，还有《废墟图书馆》的老熟人们，也将一同赴约。</p>
@@ -1029,6 +1035,8 @@ mark { background: #f0d8ad; color: #6a4319; }
       canvas.remove();
     }, ms + 50);
   }
+  const eggWaitMs = [60000, 180000, 300000];
+  let eggWaitIndex = 0;
   function playBgEaster() {
     if (pageArt.classList.contains('is-flash')) return;
     pageArt.classList.add('is-flash');
@@ -1037,9 +1045,11 @@ mark { background: #f0d8ad; color: #6a4319; }
     setTimeout(() => {
       pageArt.classList.remove('is-flash');
       document.body.classList.remove('is-bg-easter');
+      eggWaitIndex = (eggWaitIndex + 1) % eggWaitMs.length;
+      setTimeout(playBgEaster, eggWaitMs[eggWaitIndex]);
     }, 4500);
   }
-  setTimeout(playBgEaster, 60000);
+  setTimeout(playBgEaster, eggWaitMs[0]);
 
   const mouseChibi = document.querySelector('.mouse-chibi');
   if (mouseChibi) {
