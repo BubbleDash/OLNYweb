@@ -275,7 +275,7 @@ mark { background: #f0d8ad; color: #6a4319; }
   .corner-mark { width: min(128px, 28vw); right: 12px; bottom: 12px; }
   .corner-mark.is-small { width: min(48px, 12vw); }
   .deco-flip { width: min(168px, 46vw); left: 10px; bottom: 12px; }
-  .layout { position: static; z-index: auto; }
+  .layout { position: relative; z-index: 1; }
   .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 40; width: 100%; background: #f6ead0; }
   body { padding-top: var(--header-height); }
   .contents { position: fixed; top: var(--header-height); right: -102%; left: auto; bottom: auto; z-index: 46; width: min(305px, 88%); height: calc(100dvh - var(--header-height)); max-height: none; overflow: auto; overscroll-behavior: contain; padding: 25px 27px; margin: 0; background: #fcfaf6; visibility: hidden; transform: none; filter: none; perspective: none; transition: right .2s, visibility .2s; border-left: 1px solid var(--line); box-shadow: -12px 0 28px #282e2728; }
