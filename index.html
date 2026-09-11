@@ -29,9 +29,9 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: clip; scroll-padding-top: calc(var(--header-height) + 18px); }
 body { margin: 0; background: var(--cream); color: var(--ink); font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; font-size: 15px; line-height: 1.95; letter-spacing: 0; -webkit-font-smoothing: antialiased; overflow-x: clip; }
-.page-art { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: var(--page-bg); --art-opacity: 0.22; }
-.page-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 22% 42%; opacity: var(--art-opacity); user-select: none; }
-.page-art::after { content: ""; position: absolute; inset: 0; background: rgba(255, 255, 255, 0.55); }
+.page-art { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: var(--page-bg); --art-opacity: 0.22; --art-fade: 1s ease-in-out; transition: background-color var(--art-fade); }
+.page-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 22% 42%; opacity: var(--art-opacity); user-select: none; transition: opacity var(--art-fade); }
+.page-art::after { content: ""; position: absolute; inset: 0; background: rgba(255, 255, 255, 0.55); transition: background-color var(--art-fade); }
 .page-art .page-art-alt { opacity: 0; }
 .page-art.is-flash { background: var(--page-bg-flash); }
 .page-art.is-flash .page-art-main { opacity: 0; }
@@ -46,10 +46,10 @@ body { margin: 0; background: var(--cream); color: var(--ink); font-family: "Mic
 }
 body.is-bg-easter .deco-flip,
 body.is-bg-easter .corner-mark,
-body.is-bg-easter .mouse-chibi { visibility: hidden !important; }
-.mouse-chibi { position: fixed; left: 0; top: 0; z-index: 80; width: 34px; height: auto; pointer-events: none; user-select: none; visibility: hidden; filter: drop-shadow(0 1px 1px #282e2755); }
+body.is-bg-easter .mouse-chibi { opacity: 0 !important; pointer-events: none !important; }
+.mouse-chibi { position: fixed; left: 0; top: 0; z-index: 80; width: 34px; height: auto; pointer-events: none; user-select: none; visibility: hidden; filter: drop-shadow(0 1px 1px #282e2755); transition: opacity 1s ease-in-out; }
 .partner-banner, .layout { position: relative; z-index: 1; }
-.corner-mark { position: fixed; right: max(14px, 2vw); bottom: max(14px, 2.2vw); z-index: 18; width: min(158px, 22vw); padding: 0; border: 0; background: transparent; cursor: pointer; line-height: 0; transition: width .2s ease; }
+.corner-mark { position: fixed; right: max(14px, 2vw); bottom: max(14px, 2.2vw); z-index: 18; width: min(158px, 22vw); padding: 0; border: 0; background: transparent; cursor: pointer; line-height: 0; transition: width .2s ease, opacity 1s ease-in-out; }
 .corner-mark.is-small { width: min(58px, 9vw); }
 .corner-mark img { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 1px #ced7a9) drop-shadow(0 1px 2px #282e2700); }
 .merch-hero { margin: 22px 0 16px; }
@@ -60,7 +60,7 @@ body.is-bg-easter .mouse-chibi { visibility: hidden !important; }
 .merch-artist { color: var(--brick); font-size: 14px; }
 .merch-artist strong { color: var(--brick); font-weight: 700; }
 .doc-section::after { content: ""; display: table; clear: both; }
-.deco-flip { position: fixed; left: max(14px, 2vw); bottom: max(18px, 2.4vw); z-index: 16; width: min(240px, 38vw); perspective: 920px; }
+.deco-flip { position: fixed; left: max(14px, 2vw); bottom: max(18px, 2.4vw); z-index: 16; width: min(240px, 38vw); perspective: 920px; transition: opacity 1s ease-in-out; }
 .deco-flip.is-off { display: none; }
 .deco-flip-close { position: absolute; top: -10px; right: -10px; z-index: 2; width: 28px; height: 28px; border: 0; border-radius: 50%; background: var(--brick); color: #fff; font-size: 18px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px #282e2740; }
 .deco-flip-stage { width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; perspective: 920px; }
