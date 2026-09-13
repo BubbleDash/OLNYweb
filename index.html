@@ -123,6 +123,9 @@ svg { display: block; flex: 0 0 auto; }
 .side-meta { border-top: 1px solid var(--line); margin-top: 25px; padding-top: 21px; }
 .side-date { font-size: 28px; line-height: 1.2; font-family: Georgia, "Times New Roman", serif; color: var(--green); font-variant-numeric: lining-nums; }
 .side-meta p { font-size: 11px; color: var(--muted); margin: 8px 0 0; }
+.side-contact { margin-top: 12px; }
+.side-contact strong { display: block; color: var(--brick); font-size: 15px; font-variant-numeric: tabular-nums; letter-spacing: 0.03em; }
+.side-contact a { color: var(--bili-pink-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 .reading-track { height: 2px; background: #e1e5d7; margin-top: 28px; }
 .reading-track span { display: block; height: 100%; width: 0; background: var(--brick); transition: width .15s linear; }
 .side-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
@@ -136,8 +139,14 @@ h1 { font-family: "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "SimS
 h1 span { display: block; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 24px; line-height: 1.7; font-weight: 500; margin-top: 0; }
 .lede { margin: 0 0 14px; font-size: 16px; color: var(--brick); font-weight: 500; }
 .unofficial-mark { display: inline-block; margin: 0 0 16px; padding: 6px 12px; border: 1.5px solid var(--brick); color: var(--brick); font-size: 14px; font-weight: 700; letter-spacing: 0.08em; line-height: 1.4; }
-.cover-hero { margin: 4px 0 22px; }
+.cover-hero { margin: 4px 0 12px; }
 .cover-hero img { width: 100%; height: auto; display: block; }
+.join-bar { margin: 0 0 22px; padding: 16px 18px; background: var(--bili-pink-soft); border: 1px solid #f2b3c6; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+.join-ticket { display: inline-flex; align-items: center; justify-content: center; background: var(--bili-pink); color: #fff; text-decoration: none; font-weight: 700; padding: 10px 18px; line-height: 1.4; }
+.join-ticket:hover, .join-ticket:focus-visible { background: var(--bili-pink-deep); color: #fff; }
+.join-qq { margin: 0; font-size: 14px; color: var(--ink); line-height: 1.6; }
+.join-qq strong { color: var(--brick); font-size: 18px; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+.section-body a[href^="http"] { color: var(--bili-pink-deep); font-weight: 700; text-underline-offset: 3px; }
 .invitation { font-size: 14px; color: #626859; line-height: 2; }
 .invitation p { margin: 0 0 12px; }
 .invitation p:last-child { margin-bottom: 0; }
@@ -249,6 +258,10 @@ mark { background: #f0d8ad; color: #6a4319; }
   .lede { font-size: 14px; }
   .unofficial-mark { font-size: 13px; margin-bottom: 14px; padding: 5px 10px; }
   .invitation { font-size: 13px; line-height: 1.95; }
+  .join-bar { padding: 14px 14px; gap: 10px; }
+  .join-ticket { width: 100%; padding: 12px 14px; }
+  .join-qq { font-size: 13px; }
+  .join-qq strong { font-size: 16px; }
   .facts { margin-top: 20px; padding: 15px 0; }
   .fact { padding-left: 11px; }
   .fact-label { font-size: 10px; }
@@ -318,6 +331,10 @@ mark { background: #f0d8ad; color: #6a4319; }
   h1 span { font-size: 17pt; }
   .eyebrow, .lede, .unofficial-mark { font-size: 10pt; }
   .cover-hero { margin: 6pt 0 9pt; }
+  .join-bar { margin: 8pt 0 0; padding: 6pt 8pt; display: block; background: none; border: 1pt solid #ccc; }
+  .join-ticket { display: inline; background: none; color: #000; padding: 0; font-weight: 700; }
+  .join-ticket::after { content: " " attr(href); font-weight: 400; font-size: 8pt; }
+  .join-qq { font-size: 10pt; }
   .invitation { font-size: 9.5pt; line-height: 1.7; }
   .doc-section { padding: 15pt 0 10pt; }
   .section-title { margin-bottom: 9pt; break-after: avoid; }
@@ -380,6 +397,8 @@ mark { background: #f0d8ad; color: #6a4319; }
     <div class="contents-header">目录 <span>01 / 09</span><button class="icon-button close-menu" type="button" aria-label="关闭章节目录"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
     <nav aria-label="章节目录"><a class="toc-link" href="#partner"><span class="num">合作</span><span>本次合作方</span></a><a class="toc-link" href="#event"><span class="num">01</span><span>活动与报名</span></a><a class="toc-link" href="#visitor"><span class="num">02</span><span>游客票与当日安排</span></a><a class="toc-link" href="#common"><span class="num">03</span><span>共同参加须知</span></a><a class="toc-link" href="#booths"><span class="num">04</span><span>申摊说明</span></a><a class="toc-link" href="#posting"><span class="num">05</span><span>宣传投稿</span></a><a class="toc-link" href="#discount"><span class="num">06</span><span>合作减免与缴费</span></a><a class="toc-link" href="#upgrade"><span class="num">07</span><span>摊主特典票升级</span></a><a class="toc-link" href="#member"><span class="num">08</span><span>随票立牌与大会员物料</span></a></nav>
     <div class="side-meta"><div class="side-date">11.28</div><p>广州月亮计划only<br>非官方，只是同人项目<br>茶话会 · 摊主招募</p>
+      <p class="side-contact">活动QQ群（非水群）<strong>469848994</strong></p>
+      <p class="side-contact"><a href="https://show.bilibili.com/platform/detail.html?id=1006043" target="_blank" rel="noopener noreferrer">B站会员购购票</a></p>
       <div class="side-partner"><a href="#partner"><span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span><span>本次合作方</span></a></div>
     </div>
     <div class="reading-track" aria-hidden="true"><span></span></div>
@@ -393,6 +412,10 @@ mark { background: #f0d8ad; color: #6a4319; }
       <figure class="cover-hero">
         <img src="assets/cover-poster.jpg" width="960" height="540" alt="广州月亮计划only 2026年11月28日茶话会宣传图：感恩节快乐，镜花水月">
       </figure>
+      <div class="join-bar" id="ticket">
+        <a class="join-ticket" href="https://show.bilibili.com/platform/detail.html?id=1006043" target="_blank" rel="noopener noreferrer">前往 B站会员购购票</a>
+        <p class="join-qq">活动QQ群（非水群） <strong>469848994</strong></p>
+      </div>
       <p class="lede">让巴士小憩一下，来赴一场暖乎乎的同好之约吧。</p>
       <div class="invitation"><p>经过群里一番热烈投票，这次小聚的主基调终于定下——《呼啸山庄》篇。故事里的风雨，就留到这个暖棕色的午后，和同好们一起聊聊。</p>
 <p>除了《边狱巴士》的同事旅伴，《脑叶公司》的主管、员工与异想体，还有《废墟图书馆》的老熟人们，也将一同赴约。</p>
@@ -454,8 +477,16 @@ mark { background: #f0d8ad; color: #6a4319; }
 <td>2026年11月28日，星期六</td>
 </tr>
 <tr>
-<td>购票及申摊入口</td>
+<td>游客购票</td>
+<td><a href="https://show.bilibili.com/platform/detail.html?id=1006043" target="_blank" rel="noopener noreferrer">B站会员购</a></td>
+</tr>
+<tr>
+<td>申摊入口</td>
 <td>CPP，具体活动链接随报名信息发布</td>
+</tr>
+<tr>
+<td>活动QQ群</td>
+<td>469848994（非水群）</td>
 </tr>
 <tr>
 <td>游客年龄</td>
@@ -497,7 +528,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 </tr>
 </tbody></table>
 </div><p>预计<strong>10月1日结束预售</strong>，之后进入正式售票。正式票比预售票贵10R，内容没有区别。</p>
-<p><strong>本次游客票在 B 站售票，购票后无法退票，主办也无法把已买的普票改成特典票。</strong>如果想换成特典票，只能自行处理原来的票，再另买一张新票。</p>
+<p><strong>本次游客票在 <a href="https://show.bilibili.com/platform/detail.html?id=1006043" target="_blank" rel="noopener noreferrer">B站会员购</a> 售票，购票后无法退票，主办也无法把已买的普票改成特典票。</strong>如果想换成特典票，只能自行处理原来的票，再另买一张新票。</p>
 </section><section class="rule" id="visitor-02"><h3><span class="rule-number">02</span>取餐说明</h3><p>取餐券只区分<strong>普票</strong>和<strong>特典票</strong>两档。去得早可以先选想要的种类；去得晚可能只能在剩下的里面挑。</p>
 <p>普票餐点体积较小，下列<strong>任选其一</strong>：水果酸奶杯、水果布丁杯、巧克力甜甜圈、抹茶味蛋糕卷、小奶油水果纸杯蛋糕。</p>
 <p>特典票下列<strong>任选其一</strong>：三英寸巴斯克小蛋糕、长方形切块蛋糕、水果三角形小切蛋糕、水果杯子蛋糕、三寸蛋糕卷、千层切蛋糕。</p>
@@ -774,7 +805,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 <p>报名时请主摊主一并告知跟摊人员上述要求。遇到需要提前协调的情况，欢迎通过CPP活动页公布的摊位对接方式联系主办。期待和带着喜欢而来的老师们见面。</p>
 </section>
 </div></section></article>
-    <footer class="document-footer"><span class="footer-brand">广州月亮计划only <span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></span><span>非官方，只是同人项目 · 2026.11.28</span></footer>
+    <footer class="document-footer"><span class="footer-brand">广州月亮计划only <span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></span><span>非官方，只是同人项目 · 活动QQ群 469848994 · 2026.11.28</span></footer>
   </main>
 </div>
 <dialog class="search-dialog" aria-label="搜索公告">
