@@ -59,6 +59,29 @@ body.is-bg-easter .mouse-chibi { opacity: 0 !important; pointer-events: none !im
 .merch-hero figcaption strong { color: var(--brick); }
 .merch-artist { color: var(--brick); font-size: 14px; }
 .merch-artist strong { color: var(--brick); font-weight: 700; }
+.venue-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 6px; }
+.venue-card { margin: 0; padding: 0; width: 100%; border: 1px solid var(--line); background: var(--paper); text-align: left; cursor: pointer; overflow: hidden; }
+.venue-card:hover, .venue-card:focus-visible { border-color: #c3cbb3; }
+.venue-card img { width: 100%; height: 148px; object-fit: cover; display: block; }
+.venue-card-label { display: block; padding: 8px 11px 10px; font-size: 12px; color: var(--muted); line-height: 1.65; }
+.venue-card-note { cursor: default; padding: 16px 15px 14px; background: var(--soft-green); border-color: #d5dcc8; }
+.venue-card-note:hover { border-color: #d5dcc8; }
+.section-body .venue-card-note strong { display: block; color: var(--green); font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.section-body .venue-card-note p { margin: 0; font-size: 12px; color: #5f6758; line-height: 1.8; }
+.venue-dialog { width: min(920px, calc(100% - 20px)); max-height: calc(100dvh - 16px); padding: 0; border: 0; background: #1b211a; color: var(--cream); }
+.venue-dialog::backdrop { background: #1b211acc; }
+.venue-dialog-frame { position: relative; padding: 44px 16px 18px; }
+.venue-dialog img { width: 100%; height: auto; min-height: 180px; max-height: min(68dvh, 720px); object-fit: contain; display: block; background: #11150f; }
+body.venue-open .deco-flip,
+body.venue-open .corner-mark,
+body.venue-open .mouse-chibi { visibility: hidden !important; pointer-events: none; }
+.venue-dialog-caption { margin: 12px 8px 0; font-size: 13px; line-height: 1.8; color: #e6e0d2; }
+.venue-dialog-close, .venue-dialog-nav { position: absolute; border: 0; background: #2b3328cc; color: #fff; width: 36px; height: 36px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; }
+.venue-dialog-close { top: 8px; right: 8px; }
+.venue-dialog-nav { top: 50%; transform: translateY(-50%); }
+.venue-dialog-nav.is-prev { left: 8px; }
+.venue-dialog-nav.is-next { right: 8px; }
+.venue-dialog-close:hover, .venue-dialog-nav:hover { background: #43533e; }
 .doc-section::after { content: ""; display: table; clear: both; }
 .deco-flip { position: fixed; left: max(14px, 2vw); bottom: max(18px, 2.4vw); z-index: 16; width: min(240px, 38vw); perspective: 920px; transition: opacity 1s ease-in-out; }
 .deco-flip.is-off { display: none; }
@@ -262,6 +285,10 @@ mark { background: #f0d8ad; color: #6a4319; }
   .join-ticket { width: 100%; padding: 12px 14px; }
   .join-qq { font-size: 13px; }
   .join-qq strong { font-size: 16px; }
+  .venue-gallery { grid-template-columns: 1fr; }
+  .venue-card img { height: 168px; }
+  .venue-dialog-frame { padding: 42px 10px 14px; }
+  .venue-dialog-nav { width: 32px; height: 32px; }
   .facts { margin-top: 20px; padding: 15px 0; }
   .fact { padding-left: 11px; }
   .fact-label { font-size: 10px; }
@@ -319,7 +346,9 @@ mark { background: #f0d8ad; color: #6a4319; }
   @page { size: A4; margin: 16mm 16mm 17mm; }
   html { scroll-padding: 0; }
   body { background: white; font-size: 10pt; line-height: 1.6; color: #222; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .site-header, .contents, .mobile-backdrop, .search-dialog, .skip-link, .section-index, .facts, .page-art, .data-snow, .corner-mark, .deco-flip, .mouse-chibi { display: none !important; }
+  .site-header, .contents, .mobile-backdrop, .search-dialog, .venue-dialog, .skip-link, .section-index, .facts, .page-art, .data-snow, .corner-mark, .deco-flip, .mouse-chibi { display: none !important; }
+  .venue-card { cursor: default; break-inside: avoid; }
+  .venue-card img { height: 90pt; }
   .partner-banner { break-after: avoid; }
   .partner-banner-inner { padding: 8pt 0 6pt; }
   .partner-banner-logo { height: 28pt; }
@@ -586,7 +615,7 @@ mark { background: #f0d8ad; color: #6a4319; }
 <p><strong>不建议携带来源不明、无正规包装，或缺少成分、保质期等信息的食品入场分享。</strong>游客、摊主之间自行赠送或交换的食品、饮品及其他个人使用物品，不属于活动统一供应内容，主办不对其来源、卫生、保存情况或适用性作保证。</p>
 <p>提供者须如实告知来源、成分及保存情况，并对自身提供行为负责；接受者须结合过敏、卫生等情况自行甄别，决定是否接受或使用。禁止强行劝食、强行赠送。对明显过期、变质或存在安全隐患的物品，工作人员有权要求停止分发或使用。私人交换造成的争议由相关当事人处理，依法属于主办的责任不因此免除。</p>
 </section><section class="rule" id="common-06"><h3><span class="rule-number">06</span>休息桌与垃圾清理</h3><p>休息桌供大家休息、交流，在不影响正常使用的前提下可以适量摆放物料，不得铺满桌面、占用座位或长期占位。<strong>产生的包装、纸巾、杯具及其他垃圾须及时清走，离开座位前必须清理干净，不能留给下一位使用者或工作人员。</strong>需由咖啡厅回收的餐具须送到指定位置。</p>
-<p><strong>本次是茶话会，大家都可以在桌面上用餐。</strong>若是普通only，一般不建议长时间占用休息桌用餐；本次茶话会不适用该条。请照常及时清理包装、纸巾和杯具，离开前把桌面收拾干净。</p>
+<p><strong>本次是茶话会，大家都可以在桌面上用餐。</strong>若是普通only，一般不建议长时间占用休息桌用餐；本次茶话会不适用该条。请照常及时清理包装、纸巾和杯具，离开前把桌面收拾干净。另外准备了两间小型会议室，可供补妆或短暂休息；场地照片见「申摊说明」中的<a href="#booths-02">空间与位置</a>。</p>
 </section><section class="rule" id="common-07"><h3><span class="rule-number">07</span>物料摆放与个人保管</h3><p><strong>休息桌及其他公共桌面均不提供物料寄存、看管、代发或领取登记服务。</strong>主摊主、跟摊人员和游客均须自行保管作品、物料、现金、设备、行李及其他个人物品；放在公共桌面不代表已交由主办保管。</p>
 <p>选择摆放者须自行安排看管、领取标识和收回，并考虑无人看管时可能发生的误拿、多拿、遗失、遗漏或损坏。不能接受无人看管风险的，请勿以这种方式摆放；贵重、限量或不可替代的物品须随身保管或当面交付。</p>
 <p><strong>对非因主办过错造成的上述损失，主办不承担保管、赔偿、补发或补寄责任，不提供持续追查、代为索赔等后续服务，也不保证物品能够找回。</strong>现场提供的登记和协助寻找，不代表接管私人财物或作出找回、赔付承诺；法律要求履行的安全保障及必要协助义务仍依法处理。</p>
@@ -640,9 +669,37 @@ mark { background: #f0d8ad; color: #6a4319; }
 </tbody></table>
 </div><p>每人最多申请2个摊位，是否通过双摊申请，以CPP及主办最终核对结果为准。未经确认，不得自行增加跟摊人员、转让摊位、交换位置或变更报名信息。</p>
 </section><section class="rule" id="booths-02"><h3><span class="rule-number">02</span>空间与位置</h3><p>为了让老师们有更舒展的陈列、出入空间，也让逛摊和排队的动线更清楚，本次暂定开放<strong>15个摊位</strong>，后续结合场地布局与报名情况调整名额，可能增加或减少，具体以主办通知为准。<strong>已通过审核并按期完成缴费的摊位会保留，不因后续名额调整被取消；CPP审核通过、尚在规定缴费期限内的摊位也会保留。</strong>有意参加的老师欢迎尽早报名~</p>
+<p>摊位主要放在落地窗一侧的主区域。活动互动区无柱、开阔。咖啡厅休息区可供休息交流。另有两间小型会议室，更接近个人会议室的感觉，桌椅可移动，需要补妆或短暂休息时可以进去用一下。</p>
+<p>空中庭院是备用外场：不下雨可用；天气好时也可作为外场占卜区、公共活动区，与内场互通。天气不好就不用。即使拍摄也不可长期占用，使用或拍摄前请相互友善沟通。</p>
 <p>同规格摊位按统一标准划定使用范围。各位置及邻摊在本摊范围内的陈列方式，可能影响视觉上的开阔程度，不保证每摊体感完全一致，但不允许邻摊因此占用你的区域。作品、展架、椅子、箱子及行李均须放在本摊范围内，摊间空隙和公共通道不作为额外储物区。</p>
 <p>相邻摆放互相影响时，可以先友好沟通；沟通不便、未解决或已影响通行，可直接找工作人员。工作人员有权按区域边界要求收起、调整或移位。连摊等需求请提前提出，能否安排以主办确认为准；因安全或动线需要调整位置时，主办有权协调调整，并说明具体安排。</p>
-<p>桌椅配置、摊位尺寸及可用范围将随后续申摊信息说明，并在缴费前供老师确认。</p>
+<p>点击下方照片可放大查看。摊位桌椅、摊位尺寸及可用范围将随后续申摊信息说明，并在缴费前供老师确认。</p>
+<div class="venue-gallery" id="venue">
+  <button type="button" class="venue-card" data-venue-full="assets/venue-01-cafe.jpg" data-venue-alt="内场1：咖啡厅休息区" data-venue-caption="内场1：咖啡厅休息区。">
+    <img src="assets/venue-01-cafe-thumb.jpg" width="540" height="720" alt="内场1：咖啡厅休息区" loading="lazy" decoding="async">
+    <span class="venue-card-label">内场1 · 咖啡厅休息区</span>
+  </button>
+  <button type="button" class="venue-card" data-venue-full="assets/venue-02-cafe.jpg" data-venue-alt="内场1：咖啡厅休息区，另一角度" data-venue-caption="内场1：咖啡厅休息区（另一角度）。">
+    <img src="assets/venue-02-cafe-thumb.jpg" width="543" height="720" alt="内场1：咖啡厅休息区，另一角度" loading="lazy" decoding="async">
+    <span class="venue-card-label">内场1 · 咖啡厅休息区</span>
+  </button>
+  <button type="button" class="venue-card" data-venue-full="assets/venue-03-activity.jpg" data-venue-alt="内场2：活动互动区域，无柱开阔" data-venue-caption="内场2：活动互动区域。无柱、开阔。">
+    <img src="assets/venue-03-activity-thumb.jpg" width="720" height="540" alt="内场2：活动互动区域，无柱开阔" loading="lazy" decoding="async">
+    <span class="venue-card-label">内场2 · 活动互动区</span>
+  </button>
+  <button type="button" class="venue-card" data-venue-full="assets/venue-04-booths.jpg" data-venue-alt="内场3：摊位主区域，落地窗阳光充足" data-venue-caption="内场3：摊位主区域。落地窗、阳光充足，中央开阔无柱。">
+    <img src="assets/venue-04-booths-thumb.jpg" width="540" height="720" alt="内场3：摊位主区域，落地窗阳光充足" loading="lazy" decoding="async">
+    <span class="venue-card-label">内场3 · 摊位主区域</span>
+  </button>
+  <button type="button" class="venue-card" data-venue-full="assets/venue-05-courtyard.jpg" data-venue-alt="空中庭院外场" data-venue-caption="空中庭院：外场备用场地。不下雨可用；天气好时也可作为外场占卜区、公共活动区，与内场互通。天气不好就不用。即使拍摄也不可长期占用，使用或拍摄前请相互友善沟通。">
+    <img src="assets/venue-05-courtyard-thumb.jpg" width="720" height="540" alt="空中庭院外场" loading="lazy" decoding="async">
+    <span class="venue-card-label">空中庭院 · 外场（备用）</span>
+  </button>
+  <div class="venue-card venue-card-note">
+    <strong>两间小会议室</strong>
+    <p>可进去补妆、短暂休息。更接近个人会议室的感觉，桌椅可移动。请保持整洁，用完及时让出。</p>
+  </div>
+</div>
 </section><section class="rule" id="booths-03"><h3><span class="rule-number">03</span>寄件与布撤展</h3><p><strong>寄件地址、可收件时段及包裹标识要求，预计于开展前一周左右发布，具体以寄件通知为准。通知发布并确认要求前，不得自行向场馆寄件。</strong></p>
 <p>届时须按通知粘贴主办提供的指定图片或标签，并填写要求的信息，例如摊位号、摊位名、主摊主姓名及联系方式。具体填写项目、贴法和寄送时间以通知为准；未按要求标识或超出收件时段的包裹，可能无法识别、签收或入库。包裹上的个人信息仅用于收件和交接，不要在群内公开传播。</p>
 <p>布展、补货、寄件领取及撤场须遵守指定时段，离场前带走剩余物料、包装和垃圾。摊主可按安排提前布展，但不得利用提前进场抢先兑换未开放的公共限量物料。</p>
@@ -808,6 +865,21 @@ mark { background: #f0d8ad; color: #6a4319; }
     <footer class="document-footer"><span class="footer-brand">广州月亮计划only <span class="bili-logo" role="img" aria-label="bilibilionly">bilibilionly</span></span><span>非官方，只是同人项目 · 活动QQ群 469848994 · 2026.11.28</span></footer>
   </main>
 </div>
+<dialog class="venue-dialog" aria-label="查看场地照片">
+  <div class="venue-dialog-frame">
+    <button class="venue-dialog-close" type="button" data-action="close-venue" aria-label="关闭">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+    <button class="venue-dialog-nav is-prev" type="button" data-action="venue-prev" aria-label="上一张">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+    </button>
+    <img alt="">
+    <button class="venue-dialog-nav is-next" type="button" data-action="venue-next" aria-label="下一张">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+    </button>
+    <p class="venue-dialog-caption"></p>
+  </div>
+</dialog>
 <dialog class="search-dialog" aria-label="搜索公告">
   <div class="search-heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><input type="search" placeholder="搜索公告" aria-label="搜索关键词" autocomplete="off"><button class="icon-button" type="button" data-action="close-search" aria-label="关闭搜索"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
   <div class="search-status" role="status" aria-live="polite"></div>
@@ -1002,6 +1074,40 @@ mark { background: #f0d8ad; color: #6a4319; }
   });
   searchInput.addEventListener('input', renderSearch);
   searchInput.addEventListener('keydown', event => { if (event.key === 'Enter') results.querySelector('button')?.click(); });
+
+  const venueDialog = document.querySelector('.venue-dialog');
+  const venueImg = venueDialog.querySelector('img');
+  const venueCaption = venueDialog.querySelector('.venue-dialog-caption');
+  const venueItems = [...document.querySelectorAll('[data-venue-full]')];
+  let venueIndex = 0;
+  function showVenue(index) {
+    venueIndex = (index + venueItems.length) % venueItems.length;
+    const item = venueItems[venueIndex];
+    venueImg.src = item.getAttribute('data-venue-full');
+    venueImg.alt = item.getAttribute('data-venue-alt') || '';
+    venueCaption.textContent = item.getAttribute('data-venue-caption') || '';
+    document.body.classList.add('venue-open');
+    if (!venueDialog.open) venueDialog.showModal();
+  }
+  document.querySelector('.venue-gallery').addEventListener('click', event => {
+    const card = event.target.closest('[data-venue-full]');
+    if (!card) return;
+    showVenue(venueItems.indexOf(card));
+  });
+  venueDialog.addEventListener('close', () => document.body.classList.remove('venue-open'));
+  venueDialog.querySelector('[data-action="close-venue"]').addEventListener('click', () => venueDialog.close());
+  venueDialog.querySelector('[data-action="venue-prev"]').addEventListener('click', () => showVenue(venueIndex - 1));
+  venueDialog.querySelector('[data-action="venue-next"]').addEventListener('click', () => showVenue(venueIndex + 1));
+  venueDialog.addEventListener('click', event => {
+    if (event.target !== venueDialog) return;
+    venueDialog.close();
+  });
+  venueDialog.addEventListener('keydown', event => {
+    if (!venueDialog.open) return;
+    if (event.key === 'Escape') { event.preventDefault(); venueDialog.close(); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); showVenue(venueIndex - 1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); showVenue(venueIndex + 1); }
+  });
 
   const cornerMark = document.querySelector('.corner-mark');
   cornerMark.addEventListener('click', () => {
